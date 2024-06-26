@@ -74,7 +74,7 @@ Start-Sleep -Seconds 2
 
 # Install server dependencies
 Write-Host "`nInstalling server dependencies..." -ForegroundColor Cyan
-ExecuteCommand "npm" "install express dotenv mysql2 sequelize sequelize-cli jsonwebtoken bcryptjs cors colorette"
+ExecuteCommand "npm" "install express dotenv mysql2 sequelize sequelize-cli jsonwebtoken bcryptjs cors colorette nodemon"
 
 # Wait for 2 seconds
 Start-Sleep -Seconds 2
@@ -98,14 +98,14 @@ Start-Sleep -Seconds 2
   ".env",
   "App.js",
   "santasList.txt",
-  "server.js",
+  "Server.js",
   "src/config/config.js",
-  "src/controllers/controller.js",
-  "src/middleware/middleware.js",
-  "src/migrations/migration.js",
-  "src/models/model.js",
-  "src/routes/route.js",
-  "src/template/template.js"
+  "src/controllers/index.js",
+  "src/middleware/index.js",
+  "src/migrations/index.js",
+  "src/models/index.js",
+  "src/routes/index.js",
+  "src/template/index.js"
 ) | ForEach-Object {
   try {
     New-Item -ItemType File -Path $_ -ErrorAction Stop
@@ -156,7 +156,7 @@ $viteProcess.WaitForExit()
 Write-Host "`nInitializing client dependencies..." -ForegroundColor Cyan
 Start-Sleep -Seconds 2
 Write-Host "`nPhase 1 initiated." -ForegroundColor Yellow
-ExecuteCommand "npm" "install axios react-router-dom framer-motion @headlessui/react @emotion/react @emotion/styled"
+ExecuteCommand "npm" "install axios react-router-dom framer-motion @headlessui/react @emotion/react @emotion/styled prop-types react-select"
 Start-Sleep -Seconds 2
 
 # Install Tailwind CSS and other necessary packages
@@ -205,6 +205,12 @@ Write-Host "`nCreating additional directories in the src directory..." -Foregrou
 Write-Host "`nRemoving specified items..." -ForegroundColor Cyan
 RemoveItemWithHandling "..\assets"
 RemoveItemWithHandling "App.css"
+
+# Wait for 2 seconds
+Start-Sleep -Seconds 2
+
+# Navigate back to the root directory
+Set-Location -Path ..
 
 # Wait for 2 seconds
 Start-Sleep -Seconds 2
